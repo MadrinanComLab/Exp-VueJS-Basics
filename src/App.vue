@@ -1,7 +1,9 @@
 <template>
   <!--/ <img alt="Vue logo" src="./assets/logo.png">
   <HelloWorld msg="Welcome to Your Vue.js App"/> /-->
-  <h1>{{ title }}</h1>
+  <h1>{{ title }}</h1><br>
+  <input type="text" ref="name">
+  <button @click="handleClick">Click me</button>
 </template>
 
 <script>
@@ -12,6 +14,16 @@ export default {
   data() {
     return {
       title: "My First Vue App :3"
+    }
+  },
+
+  methods: {
+    handleClick() {
+      // NOTE: 'name' IN this.$refs.name WAS THE ref VALUE WE ASSIGNED IN THE INPUT TAG
+      console.log(this.$refs.name.value)
+      this.$refs.name.classList.add("active")
+      this.$refs.name.focus()
+      this.title = this.$refs.name.value
     }
   }
   /* components: {
