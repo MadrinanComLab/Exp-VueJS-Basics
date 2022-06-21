@@ -5,9 +5,9 @@
   <input type="text" ref="name">
   <button @click="handleClick">Click me</button>
 
-  <div>
-
-    <Modal v-show="showModal" theme="sale" @close="toggleModal"><!--/ THIS IS AN EXAMPLE OF VUE JS SLOT /-->
+  <!--/ THE 'to' ATTR IN teleport WAS EXLUSIVE ON teleport ONLY AND THE VALUE OF IT IS WHERE YOU WANT TO TELEPORT IT (ID OR CLASS OF THAT ELEMENT)/-->
+  <teleport to="#modals" v-if="showModal"><!--/ THIS teleport TAG WAS PREVIOUSLY div. IT WAS CHANGED INTO teleport TO DEMO HOW TO USE THIS FEATURE OF VUE JS /-->
+    <Modal theme="sale" @close="toggleModal"><!--/ THIS IS AN EXAMPLE OF VUE JS SLOT /-->
       <h1>This is a modal</h1>
       <p>Lorem ipsum dolor sit amet consectetur.</p>
 
@@ -19,8 +19,18 @@
       </template>
     </Modal>
 
+    <!--/ <Modal 
+      :header="header"
+      :text="text" 
+      theme="sale"
+      :books="books"
+      :authors="['José Rizal', 'Ambeth Ocampo', 'John Ray Ramos']"
+      @close="toggleModal"/> /-->
+  </teleport>
+
+  <teleport to="#modals" v-if="showModalTwo"><!--/ THIS teleport TAG WAS PREVIOUSLY div. IT WAS CHANGED INTO teleport TO DEMO HOW TO USE THIS FEATURE OF VUE JS /-->
     <!--/ THE SECOND <Modal> BELOW DEMONSTRATE HOW TO REUSE A COMPONENT /-->
-    <Modal v-show="showModalTwo" @close="closeSecondModal">
+    <Modal @close="closeSecondModal">
       <h1>This is the second modal</h1>
       <p>Lorem ipsum dolor sit amet consectetur.</p>
 
@@ -29,15 +39,7 @@
         <a href="#">Button #2</a>
       </template>
     </Modal>
-
-    <!--/ <Modal 
-      :header="header"
-      :text="text" 
-      theme="sale"
-      :books="books"
-      :authors="['José Rizal', 'Ambeth Ocampo', 'John Ray Ramos']"
-      @close="toggleModal"/> /-->
-  </div>
+  </teleport>
 
   <br>
   <button @click="toggleModal">Show Modal</button>
@@ -113,7 +115,7 @@ export default {
 </script>
 
 <style>
-#app {
+#app, #modals { /* THE #modals WAS ADDED WHEN WE TELEPORT THE MODAL COMPONENT (Modal.vue) TO #modal ELEMENT IN index.html THAT YOU'LL FOUND IN PUBLIC FOLDER */
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
