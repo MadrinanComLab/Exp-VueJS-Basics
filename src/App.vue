@@ -5,9 +5,9 @@
   <input type="text" ref="name">
   <button @click="handleClick">Click me</button>
 
-  <div v-show="showModal">
+  <div>
 
-    <Modal  theme="sale" @close="toggleModal"><!--/ THIS IS AN EXAMPLE OF VUE JS SLOT /-->
+    <Modal v-show="showModal" theme="sale" @close="toggleModal"><!--/ THIS IS AN EXAMPLE OF VUE JS SLOT /-->
       <h1>This is a modal</h1>
       <p>Lorem ipsum dolor sit amet consectetur.</p>
 
@@ -16,6 +16,17 @@
       <template v-slot:links><!--/ THIS IS HOW WE GIVE NAME TO A SLOT /-->
         <a href="https://sites.google.com/view/madriancomlab/home">Google Site Portfolio</a>
         <a href="https://github.com/madrinanComLab">GitHub Account</a>
+      </template>
+    </Modal>
+
+    <!--/ THE SECOND <Modal> BELOW DEMONSTRATE HOW TO REUSE A COMPONENT /-->
+    <Modal v-show="showModalTwo" @close="closeSecondModal">
+      <h1>This is the second modal</h1>
+      <p>Lorem ipsum dolor sit amet consectetur.</p>
+
+      <template v-slot:links>
+        <a href="#">Button #1</a>
+        <a href="#">Button #2</a>
       </template>
     </Modal>
 
@@ -28,7 +39,9 @@
       @close="toggleModal"/> /-->
   </div>
 
+  <br>
   <button @click="toggleModal">Show Modal</button>
+  <button @click="closeSecondModal">Show Second Modal</button>
 
   <!--/
   CLICK EVENT MODIFIER
@@ -62,6 +75,7 @@ export default {
       header: "Sign Up Now!",
       text: "Tangna Baho dito sa Outpost!",
       showModal: false,
+      showModalTwo: false,
       books: [
         "The Reign of Greed",
         "Rizal Without the Overcoat",
@@ -86,6 +100,10 @@ export default {
 
     toggleModal() {
       this.showModal = !this.showModal
+    },
+
+    closeSecondModal() {
+      this.showModalTwo = !this.showModalTwo
     }
   }
   /* components: {
