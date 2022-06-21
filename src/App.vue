@@ -5,17 +5,39 @@
   <input type="text" ref="name">
   <button @click="handleClick">Click me</button>
 
-  <div v-if="showModal">
-    <Modal 
+  <div v-show="showModal">
+
+    <Modal  theme="sale" @close="toggleModal"><!--/ THIS IS AN EXAMPLE OF VUE JS SLOT /-->
+      <h1>This is a modal</h1>
+      <p>Lorem ipsum dolor sit amet consectetur.</p>
+
+      <!--/ NAMED SLOTS /-->
+      <!--/ THIS TEMPLATE FOR SLOT CAN BE PLACED ANYWHERE INSIDE OF THIS <MODAL> /-->
+      <template v-slot:links><!--/ THIS IS HOW WE GIVE NAME TO A SLOT /-->
+        <a href="https://sites.google.com/view/madriancomlab/home">Google Site Portfolio</a>
+        <a href="https://github.com/madrinanComLab">GitHub Account</a>
+      </template>
+    </Modal>
+
+    <!--/ <Modal 
       :header="header"
       :text="text" 
       theme="sale"
       :books="books"
       :authors="['José Rizal', 'Ambeth Ocampo', 'John Ray Ramos']"
-      @close="toggleModal"/>
+      @close="toggleModal"/> /-->
   </div>
 
   <button @click="toggleModal">Show Modal</button>
+
+  <!--/
+  CLICK EVENT MODIFIER
+
+  <button @click.right="toggleModal">Show Modal</button> THIS WILL ONLY TRIGGER IF USER PRESS RIGHT CLICK
+  <button @click.shift="toggleModal">Show Modal</button> THIS WILL ONLY TRIGGER IF USER HOLDS SHIFT WHILE PRESSING LEFT CLICK
+  <button @click.alt="toggleModal">Show Modal</button> THIS WILL ONLY TRIGGER IF USER HOLDS ALT WHILE PRESSING LEFT CLICK
+  <button @click.self="toggleModal">Show Modal</button> THIS IS EFFECTIVE IN ELEMENTS THAT HAS CHILD IN IT, THIS MEANS IT WILL ONLY TRIGGER IF THE PARENT TAG WAS CLICKED AND NOT ITS CHILD
+  /-->
 
   <!--/
   <Modal 

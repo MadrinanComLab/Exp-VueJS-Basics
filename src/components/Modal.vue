@@ -1,5 +1,5 @@
 <template>
-    <div class="backdrop" @click="closeModal">
+    <div class="backdrop" @click.self="closeModal"><!--/ EXPLANATION OF THIS WAS ON App.vue, IT WAS COMMENTED UNDER CLICK EVENT MODIFIER /-->
         <!--/ 
             REMEMBER:
             <div class="modal" :class="{ sale: theme == 'sale' }">
@@ -10,8 +10,17 @@
                sale:                       theme == 'sale'
         /-->
         <div class="modal" :class="{ sale: theme == 'sale' }">
-            <h1>{{ header }}</h1>
-            <p>{{ text }}</p>
+
+            <slot> <!--/ THIS IS HOW WE RECEIVE SLOT /-->
+                <!--/ THIS WILL BE DISPLAY IF PARENT COMPONENT DID NOT SEND CONTENT. IF YOU DIDN'T WRITE ANY MESSAGE THE SLOT WOULD BE JUST BLANK /-->
+            </slot>
+
+            <div class="actions">
+                <slot name="links"></slot><!--/ THIS IS HOW WE DISPLAY A NAMED SLOT /-->
+            </div>
+
+            <!--/ <h1>{{ header }}</h1>
+            <p>{{ text }}</p> /-->
 
             <!--/ THE EXAMPLE LOOP BELOW DEMONSTRATE HOW TO ASSIGN UNIQUE ID TO ITS ITEM (<h4></h4>) /-->
             <!--<li v-for="(book, i) in books" :key="i">
@@ -35,13 +44,14 @@ export default {
     props: [ "header", "text", "fruits", "theme", "books", "authors" ], // THIS IS HOW WE RECEIVE PROPS OR DATA FROM OTHER COMPONENTS
     methods: {
         closeModal() {
+            // THIS IS CALLED 'EMITTING CUSTOM EVENTS'
             this.$emit("close") // USING THIS WE'RE BE ABLE TO COMMUNICATE TO PARENT COMPONENT AND HAVE ACCESS TO ITS FUNCTIONS
         }
     }
 }
 </script>
 
-<style scoped>/* scoped WILL LIMIT THE STYLESHEET AND ONLY AFFECT THIS COMPONENT (Modal.vue) */
+<style>/* scoped WILL LIMIT THE STYLESHEET AND ONLY AFFECT THIS COMPONENT (Modal.vue) */
 .modal {
     width: 400px;
     padding: 20px;
@@ -68,7 +78,23 @@ h1 {
     color: #FFF;
 }
 
-.modal.sale h1 {
+.modal .actions {
+    text-align: center;
+    margin: 30px 0 10px 0;
+}
+
+.modal .actions a {
+    color: #333;
+    padding: 8px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    text-decoration: none;
+    margin: 10px;
+}
+
+.modal.sale h1,
+.modal.sale .actions,
+.modal.sale .actions a {
     color: #FFF;
 }
 </style>
